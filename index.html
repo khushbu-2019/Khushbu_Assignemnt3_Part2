@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Assignemnt 3 JavaScript and the Canvas</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    </head>
+<!--I did not follow my concept due to the complexity of it and the higher knowledge needed to complete it.-->
+    <body>
+        <div class="container">
+            <h1>IT'S SPRING TIME!</h1>
+            <h3>CLICK ON THE SKY</h3>
+        <!--<img src="img/Asset 1.png">-->
+           <!--- <img src="img/Asset 2.png">-->
+            
+            <canvas id="c" width='1200' height='800'> </canvas>
+            <script>
+
+
+                //DAISY Source: Week 12 Class exmaple --> Image Animation 
+                function animate() {
+                    if(((flower.style.width + xPos) > canvas.width) ||
+                    ((flower.style.height + yPos) > canvas.height) )
+                    {
+                        xPos = 0;
+                        yPos = 300;
+                    }
+
+                    context.clearRect( 0,0, 600, 600);
+
+                    context.drawImage(flower, xPos, yPos);
+                    xPos += xSpeed;
+                    yPos += ySpeed;
+
+                    requestAnimationFrame(animate);
+                }
+
+                var canvas = document.getElementById('c');
+                var context = canvas.getContext ('2d');
+
+                var flower = document.createElement("img");
+
+                flower.src = "img/Asset 1.png";
+            
+
+                var xSpeed = 4; 
+                var ySpeed = 0;
+
+                var xPos = 0;
+                var yPos = 300;
+                
+                animate();
+            
+            
+            //for clouds //Source: JavaScript Beginner's Guide By John Pollock & Learning PHP, MySQL, Javascript, CSS & HTML5 by Robin Nixon pg. 517 - 567
+            //Source: Week 12-D Animating mutiple Items 
+            var canvas = document.getElementById('c');
+            var context = canvas.getContext('2d');
+
+            //context.lineWidth = 5;
+
+            var clouds = new Array();
+
+            for( var i = 0; i < 20; i ++ )
+
+            {
+                clouds [i] = {
+                    x:i * 20
+                };
+            }
+
+            //when clicked, add another cloud 
+
+            canvas.addEventListener ( 'click', function() {
+                clouds.push({
+                    x:0
+                });
+            });
+
+            function frame(event)
+            {
+
+                //context.clearRect ( 0, 0, 600, 600 );    
+
+                clouds.forEach( function ( value, key){
+                    context.beginPath()
+                    context.moveTo(180, 60)
+                    context.quadraticCurveTo(240, 0, 300, 60)
+                    context.quadraticCurveTo(460, 30, 420, 100)
+                    context.quadraticCurveTo(480, 210, 340, 170)
+                    context.quadraticCurveTo(240, 240, 200, 170)
+                    context.quadraticCurveTo(100, 200, 140, 130)
+                    context.quadraticCurveTo(40, 40, 180, 60)
+                    context.fillStyle = 'white';
+                    context.fill()
+                    //context.closePath()   
+                    
+                    clouds[key].x += 1;
+
+                    if ( clouds[key].x > 50 )
+                    {
+                        delete clouds[key];
+                    }
+                });
+
+                window.requestAnimationFrame( frame );
+            }
+
+            frame();
+
+
+
+            //grass 
+            context.beginPath()
+            context.fillStyle = "#7ec850";
+            context.fillRect(0,600,1200,800);
+            context.closePath()
+            
+            
+
+
+
+            </script>
+
+
+
+        </div>
+    </body>
+</html>
